@@ -4,14 +4,13 @@ exports.payment = async (req, res) => {
   try {
     const paymentIntent = await stripe.paymentIntents.create({
       amount: req.body.amount,
-      currency: "eur",
-      source: req.body.tokenId,
+      currency: "usd",
     });
     res.status(200).json(paymentIntent);
   } catch (err) {
     res.status(500).json(err);
   }
-  //old_stripe
+  // //old_stripe
   // stripe.charges.create(
   //   {
   //     amount: req.body.amount,
