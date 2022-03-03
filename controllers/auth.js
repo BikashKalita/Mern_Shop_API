@@ -2,12 +2,13 @@ const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const Auth = require("../utils/auth");
 exports.register = async (req, res) => {
-  const { username, email, password } = req.body;
+  const { firstname, lastname, email, password } = req.body;
   try {
     const newUser = await User.create({
-      username,
+      firstname,
+      lastname,
       email,
-      password: bcrypt.hashSync(password),
+      password,
     });
     const token = Auth.signToken(newUser._id, newUser.isAdmin);
     res.status(200).json({ newUser, token });
@@ -17,9 +18,9 @@ exports.register = async (req, res) => {
 };
 
 exports.signin = async (req, res) => {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
   try {
-    const finduser = await User.findOne({ username }).select("+password");
+    const finduser = await User.findOne({ email }).select("+password");
     if (!finduser)
       return res
         .status(500)

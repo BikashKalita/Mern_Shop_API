@@ -10,7 +10,7 @@ const cartRoute = require("./routes/cart");
 const orderRoute = require("./routes/order");
 const paymentRoute = require("./routes/stripe");
 mongoose
-  .connect(process.env.CLUSTER_URL)
+  .connect(process.env.CLUSTER_URL, { autoIndex: true })
   .then(() => console.log("CONNECTED"))
   .catch((e) => console.log(e));
 app.use(express.json());
