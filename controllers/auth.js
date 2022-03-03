@@ -11,7 +11,7 @@ exports.register = async (req, res) => {
       password,
     });
     const token = Auth.signToken(newUser._id, newUser.isAdmin);
-    res.status(200).json({ newUser, token });
+    res.status(200).json({ user: newUser, token });
   } catch (err) {
     res.status(500).json(err);
   }
